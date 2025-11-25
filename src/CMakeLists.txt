@@ -562,6 +562,7 @@ if(MSVC)
           ${STDUUID}
 
           protobuf::libprotobuf protobuf
+          absl::log_internal_check_op
           Threads::Threads
           GLEW::GLEW
           asio::asio
@@ -608,6 +609,7 @@ elseif(ANDROID)
           ${MINIZIP_LIBRARY}
 
           protobuf::libprotobuf protobuf
+          absl::log_internal_check_op
           Threads::Threads
           asio::asio
           OpenSLES
@@ -672,7 +674,6 @@ elseif(WASM)
           ${HTTPLIB_LIBRARY}
 
           protobuf::libprotobuf protobuf
-
           Threads::Threads
           asio::asio
           # OpenAL::OpenAL (using emscripten openal api)
@@ -788,6 +789,7 @@ else() # Linux
           ${HTTPLIB_LIBRARY}
 
           protobuf::libprotobuf protobuf
+          absl::log_internal_check_op
           Threads::Threads
           X11::X11
           asio::asio
