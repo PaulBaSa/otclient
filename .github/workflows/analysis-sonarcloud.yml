@@ -14,6 +14,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_RUNTIME_TOKEN: ${{ secrets.ACTIONS_RUNTIME_TOKEN }}
+      ACTIONS_CACHE_URL: ${{ secrets.ACTIONS_CACHE_URL }}
 
     steps:
       - name: Checkout repository
@@ -51,6 +54,11 @@ jobs:
           $hash = [BitConverter]::ToString($hashBytes) -replace '-', ''
           "hash=$hash" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential ninja-build gcc g++
+
       - name: Cache vcpkg binary artifacts
         uses: actions/cache@v4
         with:
@@ -71,14 +79,16 @@ jobs:
       - name: Setup CMake
         uses: lukka/get-cmake@56d043d188c3612951d8755da8f4b709ec951ad6
 
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential ninja-build
-
       # Safe build only for trusted sources
       - name: Build safely
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         run: |
-          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake \
+            -DVCPKG_TARGET_TRIPLET=x64-linux \
+            -DCMAKE_C_COMPILER=gcc \
+            -DCMAKE_CXX_COMPILER=g++
           cmake --build build --parallel
 
       # Skip unsafe build on fork PRs
