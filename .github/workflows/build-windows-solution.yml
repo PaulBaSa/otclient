@@ -80,7 +80,7 @@ jobs:
         vcpkgGitCommitId: ${{ steps.vcpkg-step.outputs.vcpkgGitCommitId }}
 
     - name: Configure and Build
-      uses: lukka/run-cmake@c381cb1a2b7120b6bdb71ee8d28adae8aa116156
+      uses: lukka/run-cmake@67c73a83a46f86c4e0b96b741ac37ff495478c38
       with:
         configurePreset: windows-debug-msbuild
         buildPreset: windows-debug-msbuild

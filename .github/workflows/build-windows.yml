@@ -118,11 +118,11 @@ jobs:
         with:
           vcpkgGitCommitId: ${{ steps.vcpkg-step.outputs.vcpkgGitCommitId }}
       - name: Get latest CMake and Ninja
-        uses: lukka/get-cmake@e00a2d0fc1a9f39f0f18a8082a32db8f9a2baf7c
+        uses: lukka/get-cmake@56d043d188c3612951d8755da8f4b709ec951ad6
 
       - name: Configure and Build
         if: ${{ matrix.buildtype == 'windows-release' }}
-        uses: lukka/run-cmake@c381cb1a2b7120b6bdb71ee8d28adae8aa116156
+        uses: lukka/run-cmake@67c73a83a46f86c4e0b96b741ac37ff495478c38
         with:
           configurePreset: ${{ matrix.buildtype }}
           buildPreset: ${{ matrix.buildtype }}

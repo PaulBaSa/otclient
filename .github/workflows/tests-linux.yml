@@ -129,7 +129,7 @@ jobs:
           "hash=$hash" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       - name: Install CMake and Ninja
-        uses: lukka/get-cmake@e00a2d0fc1a9f39f0f18a8082a32db8f9a2baf7c
+        uses: lukka/get-cmake@56d043d188c3612951d8755da8f4b709ec951ad6
 
       - name: Cache CMake build directory
         uses: actions/cache@v4
