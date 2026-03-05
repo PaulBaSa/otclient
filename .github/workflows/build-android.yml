@@ -53,12 +53,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - build_type: debug
-            gradle_task: assembleDebug
-            apk_dir: debug
-          - build_type: release
-            gradle_task: assembleRelease
-            apk_dir: release
+          - build_type: releaseSkinDebug
+            gradle_task: assembleReleaseSkinDebug
+            apk_dir: releaseSkinDebug
 
     steps:
       - name: Checkout repository
@@ -75,11 +72,17 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install NDK ${{ env.NDK_VERSION }}
+      - name: Install Android SDK platform and NDK
         run: |
+          sdkmanager --install "platforms;android-36"
           sdkmanager --install "ndk;${{ env.NDK_VERSION }}" || \
           sdkmanager --install "ndk-bundle"
-          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/${{ env.NDK_VERSION }}" >> $GITHUB_ENV
+          # The installed NDK directory may include a suffix (e.g. " rc2"), find it dynamically
+          NDK_DIR=$(ls -d "$ANDROID_SDK_ROOT/ndk/${{ env.NDK_VERSION }}"* 2>/dev/null | head -1)
+          if [ -z "$NDK_DIR" ]; then
+            NDK_DIR="$ANDROID_SDK_ROOT/ndk-bundle"
+          fi
+          echo "ANDROID_NDK_HOME=$NDK_DIR" >> $GITHUB_ENV
 
       - name: Get vcpkg commit ID
         id: vcpkg-step
