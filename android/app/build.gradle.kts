@@ -16,12 +16,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            abiFilters += listOf("arm64-v8a")
         }
 
         externalNativeBuild {
             cmake {
-                cppFlags += listOf("-std=c++20", "-flto")
+                cppFlags += listOf("-std=c++20")
 
                 arguments += listOf(
                     "-DVCPKG_TARGET_ANDROID=ON",

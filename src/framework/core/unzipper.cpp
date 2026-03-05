@@ -22,6 +22,21 @@
 
 #ifdef ANDROID
 
+// On Android we ship resources differently and don't need full minizip support.
+// Provide a stub implementation that simply logs and returns. This avoids
+// pulling in the minizip headers and library which are not available on the
+// Android build environment.
+#include "unzipper.h"
+#include "logger.h"
+#include "resourcemanager.h"
+#include <filesystem>
+
+void unzipper::extract(const char* /*fileBuffer*/, uint /*fileLength*/, std::string& /*destinationPath*/) {
+    g_logger.warning("unzipper.extract called on Android - operation is a no-op");
+}
+
+#else
+
 #include "unzipper.h"
 #include "logger.h"
 #include "resourcemanager.h"
