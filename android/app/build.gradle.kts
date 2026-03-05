@@ -16,6 +16,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
+            // Single ABI (arm64-v8a) for release to simplify build; add others as needed
             abiFilters += listOf("arm64-v8a")
         }
 
@@ -25,7 +26,15 @@ android {
 
                 arguments += listOf(
                     "-DVCPKG_TARGET_ANDROID=ON",
-                    "-DANDROID_STL=c++_shared"
+                    "-DANDROID_STL=c++_shared",
+                    "-DCMAKE_TOOLCHAIN_FILE=${projectDir}/../../cmake/android-ndk-no-gold.toolchain.cmake",
+                    "-DCMAKE_CXX_COMPILER=${projectDir}/../../cmake/clang-no-gold.sh",
+                    "-DCMAKE_C_COMPILER=${projectDir}/../../cmake/clang-no-gold.sh",
+                    "-DCMAKE_CXX_FLAGS_INIT=-fuse-ld=lld",
+                    "-DCMAKE_C_FLAGS_INIT=-fuse-ld=lld",
+                    "-DCMAKE_EXE_LINKER_FLAGS_INIT=-fuse-ld=lld",
+                    "-DCMAKE_SHARED_LINKER_FLAGS_INIT=-fuse-ld=lld",
+                    "-DCMAKE_MODULE_LINKER_FLAGS_INIT=-fuse-ld=lld"
                 )
             }
         }
