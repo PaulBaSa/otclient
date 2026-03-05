@@ -47,6 +47,15 @@ android {
                 file("proguard-rules.pro")
             )
         }
+        create("releaseSkinDebug") {
+            initWith(getByName("release"))
+            isDebuggable = true
+            externalNativeBuild {
+                cmake {
+                    arguments += "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+                }
+            }
+        }
     }
 
     compileOptions {
