@@ -8,7 +8,12 @@ if [ -z "$NDK_PATH" ]; then
     exit 1
 fi
 
-real="$NDK_PATH/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+case "$(uname -s)" in
+    Darwin*) HOST_PLATFORM="darwin-x86_64" ;;
+    *)       HOST_PLATFORM="linux-x86_64" ;;
+esac
+
+real="$NDK_PATH/toolchains/llvm/prebuilt/$HOST_PLATFORM/bin/clang++"
 if [ ! -x "$real" ]; then
     echo "ERROR: clang++ not found at $real" >&2
     exit 1
