@@ -130,10 +130,12 @@ jobs:
           mkdir -p ${{ github.workspace }}/android/libs/arm64-v8a
           cp liblua.a ${{ github.workspace }}/android/libs/arm64-v8a/liblua.a
 
-      - name: Pack data.zip from game assets
+      - name: Assemble data.zip from split parts
         run: |
-          zip -r android/app/src/main/assets/data.zip \
-            init.lua otclientrc.lua data/ modules/ mods/ cacert.pem config.ini
+          mkdir -p android/app/src/main/assets
+          cat android/data/data.zip.partaa \
+              android/data/data.zip.partab \
+              > android/app/src/main/assets/data.zip
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
