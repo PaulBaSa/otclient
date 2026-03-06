@@ -2501,6 +2501,13 @@ void ProtocolGame::parsePlayerStats(const InputMessagePtr& msg) const
         msg->getU8(); // enables exp boost in the store
     }
 
+    // Custom TFS 1.5 / OTCv8: server sends 2 extra U32 fields after store boost
+    // (attackSpeed U32 + armor U32) that standard OTClient doesn't consume
+    if (g_game.getClientVersion() >= 1098 && g_game.getClientVersion() < 1281) {
+        msg->getU32(); // attackSpeed (custom field)
+        msg->getU32(); // armor (custom field)
+    }
+
     if (g_game.getClientVersion() >= 1281) {
         if (g_game.getFeature(Otc::GameDoubleHealth)) {
             manaShield = msg->getU32(); // remaining mana shield
@@ -3780,16 +3787,15 @@ Outfit ProtocolGame::getOutfit(const InputMessagePtr& msg, const bool parseMount
         outfit.setMount(mount);
     }
 
-    if (g_game.getFeature(Otc::GameWingsAurasEffectsShader) && parseMount) {
-        const uint16_t wings = msg->getU16();
-        outfit.setWing(wings);
-
-        const uint16_t auras = msg->getU16();
-        outfit.setAura(auras);
-
-        const uint16_t effects = msg->getU16();
-        outfit.setEffect(effects);
-
+    if (g_game.getFeature(Otc::GameOTCv8WingsAuras) && parseMount) {
+        // OTCv8/TFS1.5 format: wings U16 + aura U16 + shader string (no effects U16)
+        outfit.setWing(msg->getU16());
+        outfit.setAura(msg->getU16());
+        outfit.setShader(msg->getString());
+    } else if (g_game.getFeature(Otc::GameWingsAurasEffectsShader) && parseMount) {
+        outfit.setWing(msg->getU16());
+        outfit.setAura(msg->getU16());
+        outfit.setEffect(msg->getU16());
         outfit.setShader(msg->getString());
     }
 
@@ -3928,6 +3934,10 @@ CreaturePtr ProtocolGame::getCreature(const InputMessagePtr& msg, int type) cons
 
         const uint8_t healthPercent = msg->getU8();
         const auto direction = static_cast<Otc::Direction>(msg->getU8());
+        if (g_game.getFeature(Otc::GameCreaturePersonalStore)) {
+            msg->getU8();     // personal store mode
+            msg->getString(); // personal store name
+        }
         const auto& outfit = getOutfit(msg);
 
         Light light;
@@ -4109,7 +4119,7 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id)
         msg->getU8(); // mark
     }
 
-    if (item->isStackable() || item->isFluidContainer() || item->isSplash() || item->isChargeable()) {
+    if (item->isStackable() || item->isFluidContainer() || item->isSplash()) {
         item->setCountOrSubType(g_game.getFeature(Otc::GameCountU16) ? msg->getU16() : msg->getU8());
     }
 
@@ -4121,6 +4131,10 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id)
             msg->getU8();
             //item->setPhase(msg->getU8());
         }
+    }
+
+    if (g_game.getFeature(Otc::GameItemRarity)) {
+        msg->getU8(); // item rarity (U8 in OTCv8/TFS1.5 protocol)
     }
 
     if (item->isContainer()) {

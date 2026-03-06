@@ -41,6 +41,20 @@ Organized by error message for quick navigation:
 
 ---
 
+### 🔴 [ANDROID_PROTOCOL_FIXES.md](ANDROID_PROTOCOL_FIXES.md)
+**Protocol & rendering fixes for OTCv8/TFS 1.5 server (March 12, 2026)**
+
+Covers 3 major issues after the Android APK could launch and connect:
+1. Login failures ("Invalid account name." / "Invalid authentication token.")
+2. Stats packet desync — `Unhandled opcode` warnings after entering game world
+3. Map rendering corruption — colored vertical stripes across entire viewport
+
+Each issue includes root cause, exact code/Lua fix, byte-count verification, and validation steps.
+
+**When to use**: Any issue with connecting to the custom TFS 1.5 / OTCv8 server; protocol parsing errors; sprite rendering artifacts
+
+---
+
 ### 📝 [CODE_CHANGES.md](CODE_CHANGES.md)
 **Exact code modifications for all solutions**
 
@@ -145,7 +159,7 @@ When encountering new build or runtime issues:
 
 ## Version Info
 
-**Last Updated**: March 5, 2026  
+**Last Updated**: March 12, 2026
 **OTClient Version**: Tested on latest main branch  
 **NDK Version**: 29.0.13599879 (macOS)  
 **Gradle Version**: 8.14.2  

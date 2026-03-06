@@ -75,6 +75,20 @@ android {
                 }
             }
         }
+        getByName("debug") {
+            externalNativeBuild {
+                cmake {
+                    arguments += listOf(
+                        "-DCMAKE_EXE_LINKER_FLAGS_INIT=-fuse-ld=lld",
+                        "-DCMAKE_SHARED_LINKER_FLAGS_INIT=-fuse-ld=lld",
+                        "-DCMAKE_MODULE_LINKER_FLAGS_INIT=-fuse-ld=lld",
+                        "-DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld",
+                        "-DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=lld",
+                        "-DCMAKE_MODULE_LINKER_FLAGS=-fuse-ld=lld"
+                    )
+                }
+            }
+        }
     }
 
     compileOptions {
@@ -89,6 +103,13 @@ android {
     buildFeatures {
         viewBinding = true
         prefab = true
+    }
+
+    androidResources {
+        // Store data.zip uncompressed in the APK — it is already a compressed
+        // zip, so re-compressing wastes build time and forces Android to
+        // decompress the whole file into RAM before AAsset_read can stream it.
+        noCompress += "zip"
     }
 
     ndkVersion = "29.0.13599879 rc2"
