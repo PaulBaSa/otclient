@@ -76,9 +76,9 @@ if ENABLE_SERVERS then
         -- @field protocol Protocol identifier used by the server
         -- @field httpLogin Indicates if the server allows HTTP login
         --
-        ["ip.net"] = {
+        ["217.196.48.71"] = {
             port = 7171,
-            protocol = 860,
+            protocol = 1098,
             httpLogin = false
         }
     }
