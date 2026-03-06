@@ -182,7 +182,7 @@ if(TOGGLE_FRAMEWORK_SOUND)
   find_package(Ogg CONFIG REQUIRED)
 endif()
 if(ANDROID)
-  set(LUA_LIBRARY ${LUA_LIBRARY} ${CMAKE_SOURCE_DIR}/browser/include/lua51/liblua.a)
+  set(LUA_LIBRARY ${CMAKE_SOURCE_DIR}/android/libs/${ANDROID_ABI}/liblua.a)
   find_package(game-activity REQUIRED CONFIG)
   find_package(EGL REQUIRED)
 else()
@@ -578,7 +578,7 @@ elseif(ANDROID)
           PUBLIC
           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
           $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-          ${LUAJIT_INCLUDE_DIR}
+          ${CMAKE_SOURCE_DIR}/browser/include/lua51
           ${CMAKE_THREAD_LIBS_INIT}
           $<$<BOOL:${TOGGLE_FRAMEWORK_PROTOBUF}>:${Protobuf_INCLUDE_DIRS}>
           ${GMP_INCLUDE_DIR}
@@ -587,13 +587,11 @@ elseif(ANDROID)
           ${EGL_INCLUDE_DIR}
           ${PARALLEL_HASHMAP_INCLUDE_DIRS}
           ${NLOHMANN_JSON_INCLUDE_DIR}
-          ${MINIZIP_INCLUDE_DIR}
           ${CPPCODEC_INCLUDE_DIRS}
   )
   target_link_libraries(otclient_core
           PUBLIC
           ${LUA_LIBRARY}
-          ${LUAJIT_LIBRARY}
           ${PHYSFS_LIBRARY}
           ${ZLIB_LIBRARY}
           ${NLOHMANN_JSON_LIBRARY}
@@ -602,10 +600,9 @@ elseif(ANDROID)
           ${VORBISFILE_LIBRARY}
           ${VORBIS_LIBRARY}
           ${GMP_LIBRARY}
-          ${OpenAL_LIBRARY}
+          OpenAL::OpenAL
           ${OPENSSL_LIBRARIES}
           ${STDUUID}
-          ${MINIZIP_LIBRARY}
           absl::log_internal_check_op
           Threads::Threads
           asio::asio
@@ -620,6 +617,7 @@ elseif(ANDROID)
           pugixml::pugixml
           fmt::fmt-header-only
           utf8cpp::utf8cpp
+          Freetype::Freetype
   )
 
   if (TOGGLE_FRAMEWORK_PROTOBUF)

@@ -2,12 +2,13 @@
 # Wrapper around Android NDK clang++ that filters out unsupported -fuse-ld=gold
 # Usage: sets CMAKE_CXX_COMPILER to this script via CMake arguments.
 
-if [ -z "$ANDROID_NDK_HOME" ]; then
-    echo "ERROR: ANDROID_NDK_HOME not set" >&2
+NDK_PATH="${ANDROID_NDK_HOME:-${ANDROID_NDK:-${CMAKE_ANDROID_NDK}}}"
+if [ -z "$NDK_PATH" ]; then
+    echo "ERROR: ANDROID_NDK_HOME (or ANDROID_NDK) not set" >&2
     exit 1
 fi
 
-real="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+real="$NDK_PATH/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
 if [ ! -x "$real" ]; then
     echo "ERROR: clang++ not found at $real" >&2
     exit 1

@@ -34,7 +34,10 @@ android {
                     "-DCMAKE_C_FLAGS_INIT=-fuse-ld=lld",
                     "-DCMAKE_EXE_LINKER_FLAGS_INIT=-fuse-ld=lld",
                     "-DCMAKE_SHARED_LINKER_FLAGS_INIT=-fuse-ld=lld",
-                    "-DCMAKE_MODULE_LINKER_FLAGS_INIT=-fuse-ld=lld"
+                    "-DCMAKE_MODULE_LINKER_FLAGS_INIT=-fuse-ld=lld",
+                    "-DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld",
+                    "-DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=lld",
+                    "-DCMAKE_MODULE_LINKER_FLAGS=-fuse-ld=lld"
                 )
             }
         }
@@ -47,6 +50,10 @@ android {
         }
     }
 
+    signingConfigs {
+        // Use the existing debug signing config
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -55,6 +62,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 file("proguard-rules.pro")
             )
+            // Use debug signing for release builds to allow installation
+            // TODO: Configure proper release signing for production
+            signingConfig = signingConfigs.getByName("debug")
         }
         create("releaseSkinDebug") {
             initWith(getByName("release"))
