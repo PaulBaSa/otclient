@@ -20,6 +20,18 @@ local tokenWindow
 local authErrorBox
 local hasAttemptedAuthenticator = false
 
+-- Finds a Servers_init entry by actual connection host.
+-- Supports both key-as-host (legacy) and entries with an explicit 'host' field
+-- (used when two entries share the same IP but differ by protocol/label).
+local function findServerConfig(actualHost)
+    if not Servers_init or not actualHost then return nil end
+    if Servers_init[actualHost] then return Servers_init[actualHost] end
+    for _, cfg in pairs(Servers_init) do
+        if cfg.host == actualHost then return cfg end
+    end
+    return nil
+end
+
 -- private functions
 local function onError(protocol, message, errorCode)
     if loadBox then
@@ -262,15 +274,15 @@ function EnterGame.init()
     })
 
     if Servers_init and next(Servers_init) ~= nil then
-        local server = Servers_init[host]
+        local server = findServerConfig(host)
         enterGame.disableToken = not (server and server.useAuthenticator)
         if table.size(Servers_init) == 1 then
             local hostInit, valuesInit = next(Servers_init)
-            EnterGame.setUniqueServer(hostInit, valuesInit.port, valuesInit.protocol)
+            EnterGame.setUniqueServer(valuesInit.host or hostInit, valuesInit.port, valuesInit.protocol)
             EnterGame.setHttpLogin(valuesInit.httpLogin)
         elseif not host or host == "" then
             local hostInit, valuesInit = next(Servers_init)
-            EnterGame.setDefaultServer(hostInit, valuesInit.port, valuesInit.protocol)
+            EnterGame.setDefaultServer(valuesInit.host or hostInit, valuesInit.port, valuesInit.protocol)
             EnterGame.setHttpLogin(valuesInit.httpLogin)
         end
     else
@@ -811,6 +823,12 @@ function EnterGame.doLogin()
         g_game.setProtocolVersion(g_game.getClientProtocolVersion(clientVersion))
         g_game.chooseRsa(G.host)
 
+        -- Apply per-server custom RSA key if configured in Servers_init
+        local serverCfg = findServerConfig(G.host)
+        if serverCfg and serverCfg.rsa then
+            g_game.setRsa(serverCfg.rsa)
+        end
+
         if modules.game_things.isLoaded() then
             protocolLogin:login(G.host, G.port, G.account, G.password, G.authenticatorToken, G.stayLogged)
         else
@@ -907,7 +925,7 @@ function EnterGame.setUniqueServer(host, port, protocol, windowWidth, windowHeig
 
     enterGame:setHeight(windowHeight)
     enterGame.disableToken = true
-    local server = Servers_init[host]
+    local server = findServerConfig(host)
     enterGame.disableToken = not (server and server.useAuthenticator)
 
     -- preload the assets
@@ -1064,8 +1082,7 @@ function EnterGame.showAuthenticatorInput()
 end
 
 function EnterGame.doLoginWithToken()
-    local servers = Servers_init or {}
-    local serverData = servers[G.host]
+    local serverData = findServerConfig(G.host)
     if not (serverData and serverData.useAuthenticator) then
         print('Authenticator token is disabled for this server.')
         return

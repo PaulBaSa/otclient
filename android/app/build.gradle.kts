@@ -91,6 +91,13 @@ android {
         prefab = true
     }
 
+    androidResources {
+        // Store data.zip uncompressed in the APK — it is already a compressed
+        // zip, so re-compressing wastes build time and forces Android to
+        // decompress the whole file into RAM before AAsset_read can stream it.
+        noCompress += "zip"
+    }
+
     ndkVersion = "29.0.13599879 rc2"
 }
 

@@ -76,10 +76,21 @@ if ENABLE_SERVERS then
         -- @field protocol Protocol identifier used by the server
         -- @field httpLogin Indicates if the server allows HTTP login
         --
+        -- Protocol 1098 entry
         ["217.196.48.71"] = {
             port = 7171,
             protocol = 1098,
-            httpLogin = false
+            httpLogin = false,
+            rsa = "1091201329673994292788609605089955415282375029027981291234687579372662914925764463307396960011106039072308886100726558188253585039619124504743231128351135",
+        },
+
+        -- Protocol 860 entry (same server, legacy client version)
+        ["217.196.48.71 (860)"] = {
+            host = "217.196.48.71",  -- actual connection host
+            port = 7171,
+            protocol = 860,
+            httpLogin = false,
+            rsa = "1091201329673994292788609605089955415282375029027981291234687579372662914925764463307396960011106039072308886100726558188253585039619124504743231128351135",
         }
     }
 end

@@ -103,18 +103,18 @@ void AndroidManager::unZipAssetData() {
         return;
     }
 
+    // Use AASSET_MODE_STREAMING to avoid loading the entire large file into
+    // contiguous RAM (AASSET_MODE_BUFFER's AAsset_getBuffer can return NULL
+    // for files >~50MB, causing a crash on fwrite).
     AAsset* dataAsset = AAssetManager_open(
             m_app->activity->assetManager,
             "data.zip",
-            AASSET_MODE_BUFFER);
+            AASSET_MODE_STREAMING);
 
     if (!dataAsset) {
         g_logger.fatal("Failed to open data.zip from Android assets");
         return;
     }
-
-    auto dataFileLength = AAsset_getLength(dataAsset);
-    const void* dataContent = AAsset_getBuffer(dataAsset);
 
     FILE* out = fopen(destZip.c_str(), "wb");
     if (!out) {
@@ -122,9 +122,14 @@ void AndroidManager::unZipAssetData() {
         g_logger.fatal("Failed to write data.zip to internal storage");
         return;
     }
-    fwrite(dataContent, 1, dataFileLength, out);
-    fclose(out);
 
+    char buf[65536];
+    int bytesRead;
+    while ((bytesRead = AAsset_read(dataAsset, buf, sizeof(buf))) > 0) {
+        fwrite(buf, 1, static_cast<size_t>(bytesRead), out);
+    }
+
+    fclose(out);
     AAsset_close(dataAsset);
 }
 
