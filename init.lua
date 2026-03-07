@@ -81,12 +81,7 @@ if ENABLE_SERVERS then
             port = 7171,
             protocol = 1098,
             httpLogin = false,
-            -- Custom RSA public key (n value) for this server.
-            -- If your server generated its own RSA key pair, paste the n value here.
-            -- Find it in: server's config.lua (rsaKey field), key.pub, or data/rsa.lua
-            -- Without this, login fails with ERROR 2 (server closes connection after
-            -- receiving a packet it cannot decrypt).
-            -- rsa = "paste_your_server_rsa_n_value_here",
+            rsa = "1091201329673994292788609605089955415282375029027981291234687579372662914925764463307396960011106039072308886100726558188253585039619124504743231128351135",
         },
 
         -- Protocol 860 entry (same server, legacy client version)
@@ -95,7 +90,7 @@ if ENABLE_SERVERS then
             port = 7171,
             protocol = 860,
             httpLogin = false,
-            -- rsa = "paste_your_server_rsa_n_value_here",
+            rsa = "1091201329673994292788609605089955415282375029027981291234687579372662914925764463307396960011106039072308886100726558188253585039619124504743231128351135",
         }
     }
 end
