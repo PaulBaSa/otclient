@@ -76,6 +76,7 @@ if ENABLE_SERVERS then
         -- @field protocol Protocol identifier used by the server
         -- @field httpLogin Indicates if the server allows HTTP login
         --
+        -- Protocol 1098 entry
         ["217.196.48.71"] = {
             port = 7171,
             protocol = 1098,
@@ -85,6 +86,15 @@ if ENABLE_SERVERS then
             -- Find it in: server's config.lua (rsaKey field), key.pub, or data/rsa.lua
             -- Without this, login fails with ERROR 2 (server closes connection after
             -- receiving a packet it cannot decrypt).
+            -- rsa = "paste_your_server_rsa_n_value_here",
+        },
+
+        -- Protocol 860 entry (same server, legacy client version)
+        ["217.196.48.71 (860)"] = {
+            host = "217.196.48.71",  -- actual connection host
+            port = 7171,
+            protocol = 860,
+            httpLogin = false,
             -- rsa = "paste_your_server_rsa_n_value_here",
         }
     }
