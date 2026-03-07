@@ -79,7 +79,13 @@ if ENABLE_SERVERS then
         ["217.196.48.71"] = {
             port = 7171,
             protocol = 1098,
-            httpLogin = false
+            httpLogin = false,
+            -- Custom RSA public key (n value) for this server.
+            -- If your server generated its own RSA key pair, paste the n value here.
+            -- Find it in: server's config.lua (rsaKey field), key.pub, or data/rsa.lua
+            -- Without this, login fails with ERROR 2 (server closes connection after
+            -- receiving a packet it cannot decrypt).
+            -- rsa = "paste_your_server_rsa_n_value_here",
         }
     }
 end

@@ -811,6 +811,12 @@ function EnterGame.doLogin()
         g_game.setProtocolVersion(g_game.getClientProtocolVersion(clientVersion))
         g_game.chooseRsa(G.host)
 
+        -- Apply per-server custom RSA key if configured in Servers_init
+        local serverCfg = Servers_init and Servers_init[G.host]
+        if serverCfg and serverCfg.rsa then
+            g_game.setRsa(serverCfg.rsa)
+        end
+
         if modules.game_things.isLoaded() then
             protocolLogin:login(G.host, G.port, G.account, G.password, G.authenticatorToken, G.stayLogged)
         else
