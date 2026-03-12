@@ -579,6 +579,9 @@ namespace Otc
         GameCreaturePaperdoll = 128,
         GameMultiSpr = 129,
         GameVocationMonk = 130,
+        GameItemRarity = 131,
+        GameCreaturePersonalStore = 132,
+        GameOTCv8WingsAuras = 133, // OTCv8/TFS1.5: outfit sends wings U16 + aura U16 + shader string (no effects U16)
         LastGameFeature
     };
 

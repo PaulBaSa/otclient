@@ -1,6 +1,66 @@
-# Quick Reference - Android Build Troubleshooting
+# Quick Reference - Android Build & Protocol Troubleshooting
 
-## Error → Solution Lookup
+## Protocol / Runtime Error → Solution Lookup
+
+### Login: "Invalid account name."
+Server expects OTCv8 login format. Add to `android/data/modules/gamelib/protocollogin.lua` inside the RSA block:
+```lua
+msg:addU8(0)            -- packet_type byte before account name
+-- ... account, password as usual, then:
+msg:addString("OTCv8")
+msg:addU16(version)
+```
+**See**: Issue 1 in ANDROID_PROTOCOL_FIXES.md
+
+---
+
+### Login: "Invalid authentication token."
+Enable `GameAuthenticator` (>= 1072) and `GameSessionKey` (>= 1074) in `features.lua`. The server
+always expects the second RSA auth block even with no 2FA.
+**See**: Issue 1 in ANDROID_PROTOCOL_FIXES.md
+
+---
+
+### `Unhandled opcode 0x2E (46)` after `0xA0` (PlayerStats)
+Server sends `attackSpeed (U32)` + `armor (U32)` after standard stats. Add to `protocolgameparse.cpp` in `parsePlayerStats`:
+```cpp
+if (g_game.getClientVersion() >= 1098 && g_game.getClientVersion() < 1281) {
+    msg->getU32(); // attackSpeed
+    msg->getU32(); // armor
+}
+```
+Also enable `GameDoubleHealth` in `features.lua` (health/mana are U32 not U16).
+**See**: Issue 2 in ANDROID_PROTOCOL_FIXES.md
+
+---
+
+### Map shows colored vertical stripes (green/blue/black bands)
+Sprites use RGBA format (4 bytes/pixel). Enable in `features.lua`:
+```lua
+g_game.enableFeature(GameSpritesAlphaChannel)
+```
+**See**: Issue 3 in ANDROID_PROTOCOL_FIXES.md
+
+---
+
+### After `pm clear`, app crashes "Unable to find work directory"
+data.zip must contain `init.lua` at the root. Rebuild data.zip:
+```bash
+cd android/data && zip -r data.zip modules/ mods/ init.lua otclientrc.lua data/
+cp data.zip ../app/src/main/assets/data.zip
+```
+
+---
+
+### After `pm clear`, config.ini is gone
+Push it back manually:
+```bash
+cat android/data/config.ini | adb shell "run-as com.github.otclient tee /data/user/0/com.github.otclient/files/config.ini"
+```
+
+---
+
+## Build Error → Solution Lookup
 
 ### `pkg-config: command not found`
 ```bash

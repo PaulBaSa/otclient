@@ -29,6 +29,11 @@ local function tryLoadDatWithFallbacks(datPath)
     }
 
     for _, combo in ipairs(combinations) do
+        -- reset all candidate flags before each attempt so combinations
+        -- are tested in isolation and don't accumulate from prior tries
+        for _, flag in ipairs(featureFlags) do
+            g_game.disableFeature(flag)
+        end
         for _, idx in ipairs(combo) do
             g_game.enableFeature(featureFlags[idx])
         end
@@ -38,10 +43,15 @@ local function tryLoadDatWithFallbacks(datPath)
         end
     end
 
+    -- restore no flags on total failure so callers start from a clean state
+    for _, flag in ipairs(featureFlags) do
+        g_game.disableFeature(flag)
+    end
     return false
 end
 
 local function load(version)
+    if version == 0 then return end
     local errorList = {}
 
     if version >= 1281 and not g_game.getFeature(GameLoadSprInsteadProtobuf) then

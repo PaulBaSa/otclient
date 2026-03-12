@@ -50,23 +50,6 @@ if ENABLE_SERVERS then
     --
     Servers_init = {
 
-        -- Local login server
-        ---
-        -- Configuration for local login server.
-        -- @class table
-        -- @name local_login
-        -- @field port Port used for HTTP connection
-        -- @field protocol Protocol identifier used by the application
-        -- @field httpLogin Enables HTTP-based login on the server
-        -- @field useAuthenticator Enables additional authentication layer
-        --
-        ["http://127.0.0.1/login.php"] = {
-            port = 80,
-            protocol = 1412,
-            httpLogin = true,
-            useAuthenticator = false
-        },
-
         -- External server
         ---
         -- Configuration for external server ip.net.
@@ -76,11 +59,13 @@ if ENABLE_SERVERS then
         -- @field protocol Protocol identifier used by the server
         -- @field httpLogin Indicates if the server allows HTTP login
         --
+        -- Protocol 1098 entry
         ["217.196.48.71"] = {
             port = 7171,
             protocol = 1098,
-            httpLogin = false
-        }
+            httpLogin = false,
+            rsa = "1091201329673994292788609605089955415282375029027981291234687579372662914925764463307396960011106039072308886100726558188253585039619124504743231128351135",
+        },
     }
 end
 
