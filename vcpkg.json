@@ -20,6 +20,7 @@
     "pugixml",
     "stduuid",
     "zlib",
+    "minizip",
     "bshoshany-thread-pool",
     "fmt",
     "utfcpp",

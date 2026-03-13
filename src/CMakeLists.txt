@@ -128,6 +128,7 @@ add_definitions(-D"BUILD_REVISION=\\\"${BUILD_REVISION}\\\"")
 find_package(OpenSSL QUIET)
 find_package(PhysFS REQUIRED)
 find_package(ZLIB REQUIRED)
+find_package(unofficial-minizip CONFIG REQUIRED)
 find_package(phmap REQUIRED)
 find_package(absl CONFIG REQUIRED)
 if (TOGGLE_FRAMEWORK_PROTOBUF)
@@ -564,6 +565,7 @@ if(MSVC)
           fmt::fmt-header-only
           utf8cpp::utf8cpp
           Freetype::Freetype
+          unofficial::minizip::minizip
   )
 
   if (TOGGLE_FRAMEWORK_PROTOBUF)

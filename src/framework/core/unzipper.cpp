@@ -29,9 +29,9 @@ void unzipper::extract(const char* /*fileBuffer*/, uint /*fileLength*/, std::str
 #include "logger.h"
 #include "resourcemanager.h"
 #include <filesystem>
-#include <ioapi.h>
-#include <ioapi_mem.h>
-#include <unzip.h>
+#include <minizip/ioapi.h>
+#include <minizip/unzip.h>
+#include "ioapi_mem.h"
 
 const int MAX_FILENAME = 512;
 const int READ_SIZE = 8192;
@@ -60,9 +60,8 @@ void unzipper::extract(const char* fileBuffer, uint fileLength, std::string& des
         g_logger.fatal("could not read file global info");
     }
 
-    uint readSize = 8192;
     // Buffer to hold data read from the zip file.
-    char read_buffer[ readSize ];
+    char read_buffer[ READ_SIZE ];
 
     // Loop to extract all files
     u_long i;
