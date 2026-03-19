@@ -1,0 +1,120 @@
+CreateAccountWindow < MainWindow
+  !text: tr('Create Account')
+  size: 236 360
+
+CreateAccountWindow
+  id: createAccountWindow
+
+  MenuLabel
+    !text: tr('Account name')
+    anchors.left: parent.left
+    anchors.top: parent.top
+    text-auto-resize: true
+
+  TextEdit
+    margin-top: 2
+    id: accountNameTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('Email')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  TextEdit
+    margin-top: 2
+    id: emailTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('Password')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  PasswordTextEdit
+    margin-top: 2
+    id: passwordTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('Password Confirmation')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  PasswordTextEdit
+    margin-top: 2
+    id: passwordConfirmationTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('Verification Code:')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-left: 53
+    text-auto-resize: true
+
+  Label
+    margin-top: 10
+    id: captchaLabel
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    text-align: center
+    text: "******"
+    background-color: #4f4f4f
+    width: 60
+    height: 20
+    color: #00db0c
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('Enter Verification Code')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-left: 38
+    text-auto-resize: true
+
+  TextEdit
+    margin-top: 2
+    id: captchaTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 15
+
+  Button
+    anchors.left: parent.left
+    size: 80 40
+    margin-bottom: -5
+    !text: tr('Confirm')
+    @onClick: CreateAccount.doCreateAccount()
+    anchors.bottom: parent.bottom
+    
+  Button
+    !text: tr('Back')
+    size: 80 40
+    margin-bottom: -5
+    anchors.right: parent.right
+    @onClick: CreateAccount.doOpenEnterGameWindow()
+    anchors.bottom: parent.bottom

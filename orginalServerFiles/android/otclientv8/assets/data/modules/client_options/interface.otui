@@ -1,0 +1,67 @@
+OptionPanel
+      
+  OptionCheckBox
+    id: showFps
+    !text: tr('Show framerate')
+    !tooltip: tr('Display framerate')
+
+  OptionCheckBox
+    id: showPing
+    !text: tr('Show connection ping')
+    !tooltip: tr('Display connection speed to the server (milliseconds)')
+
+  OptionCheckBox
+    id: displayNames
+    !text: tr('Display creature names')
+
+  OptionCheckBox
+    id: displayCreatureBars
+    !text: tr('Show creatures health bar')
+    
+  OptionCheckBox
+    id: displayHealth
+    !text: tr('Display player health bars')
+
+  OptionCheckBox
+    id: displayMana
+    !text: tr('Show player mana bar')
+    $mobile:
+      visible: false
+    
+  OptionCheckBox
+    id: showHealthManaCircle
+    !text: tr('Show health and mana circle')
+    $mobile:
+      visible: false
+
+  OptionCheckBox
+    id: showLeftHorizontalPanel
+    !text: tr('Show left horizontal minimap panel')
+    
+  OptionCheckBox
+    id: showRightHorizontalPanel
+    !text: tr('Show right horizontal minimap panel')
+
+  Label
+    margin-top: 5
+    width: 130
+    id: backpackPanelLabel
+    !text: tr("Container's panel")
+    !tooltip: tr("Open new containers in selected panel")
+
+  ComboBox
+    id: containerPanel
+    margin-top: 3
+    margin-right: 2
+    margin-left: 2
+    margin-bottom: 5
+    @onOptionChange: modules.client_options.setOption(self:getId(), self.currentIndex)
+    @onSetup: |
+      self:addOption("1st left panel")
+      self:addOption("2nd left panel")
+      self:addOption("3rd left panel")
+      self:addOption("4th left panel")
+      self:addOption("1st right panel")
+      self:addOption("2nd right panel")
+      self:addOption("3rd right panel")
+      self:addOption("4th right panel")

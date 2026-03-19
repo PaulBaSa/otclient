@@ -1,0 +1,241 @@
+ExperienceBar < ProgressBar
+  id: experienceBar
+  background-color: #B6E866
+  anchors.top: prev.bottom
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin: 1
+  margin-top: 3
+
+SoulLabel < GameLabel
+  id: soulLabel
+  text-align: right
+  color: white
+  font: verdana-11px-rounded
+  anchors.bottom: parent.bottom
+  anchors.right: parent.right
+  anchors.left: parent.horizontalCenter
+  margin-top: 5
+  margin-right: 3
+  on: true
+
+  $!on:
+    visible: false
+    margin-top: 0
+    height: 0
+
+CapLabel < GameLabel
+  id: capLabel
+  color: white
+  font: verdana-11px-rounded
+  anchors.bottom: parent.bottom
+  anchors.left: parent.left
+  anchors.right: parent.horizontalCenter
+  margin-top: 5
+  margin-left: 3
+  on: true
+
+  $!on:
+    visible: false
+    margin-top: 0
+    height: 0
+
+ConditionWidget < UIWidget
+  size: 9 9
+
+  $!first:
+    margin-left: 2
+      
+HealthOverlay < UIWidget
+  id: healthOverlay
+  anchors.fill: parent
+  phantom: true
+  
+  HealthBar
+    id: topHealthBar
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.horizontalCenter
+    phantom: true
+
+  ManaBar
+    id: topManaBar
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.left: parent.horizontalCenter
+    phantom: true
+    
+  UIProgressBar
+    id: healthCircle
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/game/circle/left_empty
+    margin-right: 169
+    margin-bottom: 16
+    opacity: 0.5
+    phantom: true
+
+  UIProgressBar
+    id: healthCircleFront
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/game/circle/left_full
+    margin-right: 169
+    margin-bottom: 16
+    opacity: 0.5
+    phantom: true
+
+  UIProgressBar
+    id: manaCircle
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/game/circle/right_empty    
+    margin-left: 130
+    margin-bottom: 16
+    opacity: 0.5
+    phantom: true
+
+  UIProgressBar
+    id: manaCircleFront
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/game/circle/right_full
+    margin-left: 130
+    margin-bottom: 16    
+    opacity: 0.4
+    image-color: #0000FFFF
+    phantom: true
+  
+HealthInfoWindow < HeadlessMiniWindow
+  icon: 
+  text:
+  height: 38
+  &forceOpen: true
+  icon: /images/topbuttons/healthinfo
+  !text: tr('Health Info')  
+
+  Panel
+    id: contentsPanel
+    anchors.fill: parent
+    margin-top: 6
+    margin-bottom: 5
+
+    UIWidget
+      id: health
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.verticalCenter
+      height: 12
+      margin-left: 8
+      margin-right: 12
+      margin-bottom: 2
+      phantom: true
+
+      UIWidget
+        id: icon
+        image-source: /images/healthmana/hitpoints_symbol
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        size: 12 11
+
+      Label
+        id: text
+        !text: '155'
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        width: 44
+        text-align: left
+        color: #c0c0c0ff
+
+      UIWidget
+        id: total
+        anchors.left: icon.right
+        anchors.right: text.left
+        anchors.verticalCenter: parent.verticalCenter
+        image-source: /images/healthmana/hitpoints_mana_background
+        image-border-left: 6
+        image-border-right: 6
+        margin-left: 4
+        margin-right: 10
+        height: 11
+
+      UIWidget
+        id: current
+        anchors.left: total.left
+        image-source: /images/healthmana/hitpoints_bar_filled
+        image-repeated: true
+        anchors.verticalCenter: total.verticalCenter
+        height: 11
+        width: 1
+
+      UIWidget
+        id: totalMask
+        anchors.left: icon.right
+        anchors.right: text.left
+        anchors.verticalCenter: parent.verticalCenter
+        image-source: /images/healthmana/hitpoints_mana_mask
+        image-border-left: 6
+        image-border-right: 6
+        margin-left: 4
+        margin-right: 10
+        height: 11
+
+    UIWidget
+      id: mana
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.top: parent.verticalCenter
+      margin-left: 8
+      margin-right: 12
+      margin-top: 2
+      height: 12
+      phantom: true
+
+      UIWidget
+        id: icon
+        image-source: /images/healthmana/mana_symbol
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        size: 12 11
+
+      Label
+        id: text
+        !text: '60'
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        width: 44
+        text-align: left
+        color: #c0c0c0ff
+
+      UIWidget
+        id: total
+        anchors.left: icon.right
+        anchors.right: text.left
+        anchors.verticalCenter: parent.verticalCenter
+        image-source: /images/healthmana/hitpoints_mana_background
+        image-border-left: 6
+        image-border-right: 6
+        margin-left: 4
+        margin-right: 10
+        height: 11
+
+      UIWidget
+        id: current
+        anchors.left: total.left
+        image-source: /images/healthmana/mana_bar_filled
+        image-repeated: true
+        anchors.verticalCenter: total.verticalCenter
+        height: 11
+        width: 1
+
+      UIWidget
+        id: totalMask
+        anchors.left: icon.right
+        anchors.right: text.left
+        anchors.verticalCenter: parent.verticalCenter
+        image-source: /images/healthmana/hitpoints_mana_mask
+        image-border-left: 6
+        image-border-right: 6
+        margin-left: 4
+        margin-right: 10
+        height: 11

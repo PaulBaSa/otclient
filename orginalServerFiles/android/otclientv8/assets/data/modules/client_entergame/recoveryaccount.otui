@@ -1,0 +1,84 @@
+RecoveryAccountWindow < MainWindow
+  !text: tr('Recover Account')
+  size: 236 270
+
+RecoveryAccountWindow
+  id: recoveryAccountWindow
+
+  MenuLabel
+    !text: tr('Account name')
+    anchors.left: parent.left
+    anchors.top: parent.top
+    text-auto-resize: true
+
+  TextEdit
+    margin-top: 2
+    id: accountNameTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    
+  MenuLabel
+    margin-top: 8
+    !text: tr('Recovery Key')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  TextEdit
+    margin-top: 2
+    id: recoveryKeyTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('New Password')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  PasswordTextEdit
+    margin-top: 2
+    id: newPasswordTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  MenuLabel
+    margin-top: 8
+    !text: tr('New Password Confirmation')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  PasswordTextEdit
+    margin-top: 2
+    id: newPasswordConfirmationTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 7
+
+  Button
+    anchors.left: parent.left
+    size: 80 40
+    margin-bottom: 3
+    !text: tr('Confirm')
+    @onClick: RecoveryAccount.doRecoverAccount()
+    anchors.bottom: parent.bottom
+    
+  Button
+    !text: tr('Back')
+    size: 80 40
+    margin-bottom: 3
+    anchors.right: parent.right
+    @onClick: RecoveryAccount.doOpenEnterGameWindow()
+    anchors.bottom: parent.bottom

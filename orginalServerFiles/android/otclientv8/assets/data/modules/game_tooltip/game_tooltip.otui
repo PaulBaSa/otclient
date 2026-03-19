@@ -1,0 +1,55 @@
+LookItemName < Label
+  phantom: true
+  height: 18
+  font: terminus-14px-bold
+  text-horizontal-auto-resize: true
+  text-align: center
+  margin-top: 4
+
+TooltipSeparator < UIWidget
+  image-source: /images/ui/separator_horizontal
+  height: 2
+  margin-top: 4
+
+LookItemIconAttribute < UIWidget
+  font: terminus-10px
+  phantom: true
+  height: 14
+  text-offset: 24 0
+  text-horizontal-auto-resize: true
+  text-align: left
+  margin-top: 4
+
+  UIWidget
+    id: icon
+    anchors.left: parent.left
+    anchors.verticalcenter: parent.verticalcenter
+    image-source: icons
+    phantom: true
+    size: 19 19
+
+UIMiniWindow
+  id: tooltipWindow
+  focusable: false
+  phantom: true
+  
+  UIWidget
+    anchors.fill: parent
+    image-source: /images/ui/panel_side
+    image-border: 2
+    phantom: true
+  
+  Item
+    id: item
+    anchors.top: parent.top
+    anchors.horizontalcenter: parent.horizontalcenter
+    margin-top: 8
+
+  ScrollablePanel
+    id: list
+    anchors.fill: parent
+    anchors.top: prev.bottom
+    margin-left: 6
+    margin-right: 6
+    layout:
+      type: verticalBox

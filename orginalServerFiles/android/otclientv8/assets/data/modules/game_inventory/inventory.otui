@@ -1,0 +1,15 @@
+InventoryWindow
+  id: inventoryWindow
+  !text: tr('Inventory')
+  image-source: /images/ui/panel_side4
+  image-border: 2
+  image-clip: 0 2 100 96
+  @onClose: modules.game_inventory.onMiniWindowClose()
+  &save: true
+  &autoOpen: true
+  $firstextended:
+    image-clip: 0 0 100 98
+  $lastextended:
+    image-clip: 0 2 100 96
+  $firstextended lastextended:
+    image-clip: 0 0 100 98

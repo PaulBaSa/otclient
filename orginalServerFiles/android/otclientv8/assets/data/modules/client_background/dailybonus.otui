@@ -1,0 +1,15 @@
+UIMiniWindow
+  size: 200 110
+  focusable: false
+  phantom: true
+  image-source: /images/ui/panel_side
+  image-border: 1
+  $on:
+    width: 500
+
+  Panel
+    id: list
+    layout:
+      type: verticalBox
+    anchors.fill: parent
+    margin: 8

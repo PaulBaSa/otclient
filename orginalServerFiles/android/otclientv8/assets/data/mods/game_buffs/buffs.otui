@@ -1,0 +1,59 @@
+Buff < UIWidget
+  size: 50 50
+  padding: 3
+  image-source: /images/buffs/background
+
+  BuffIcon
+  BuffBorder
+  BuffStacks
+  BuffTimer
+
+BuffIcon < UIWidget
+  size: 38 38
+  anchors.centerIn: parent
+  phantom: true
+
+BuffBorder < UIWidget
+  size: 38 38
+  anchors.centerIn: parent
+  phantom: true
+
+BuffStacks < UIWidget
+  size: 32 14
+  anchors.bottom: parent.bottom
+  anchors.horizontalCenter: parent.horizontalCenter
+  phantom: true
+  text-align: center
+  image-source: /images/buffs/rect
+
+BuffTimer < UIWidget
+  size: 32 14
+  anchors.top: parent.bottom
+  anchors.horizontalCenter: parent.horizontalCenter
+  phantom: true
+  text-align: center
+  image-source: /images/buffs/rect
+  !text: '0:00'
+
+Panel
+  anchors.top: parent.top
+  anchors.left: parent.left
+  anchors.right: parent.right
+  height: 110
+
+  Panel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 50
+    layout:
+      type: horizontalBox
+
+  Panel
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    height: 50
+    layout:
+      type: horizontalBox

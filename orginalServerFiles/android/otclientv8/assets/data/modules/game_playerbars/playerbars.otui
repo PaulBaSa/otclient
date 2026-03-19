@@ -1,0 +1,258 @@
+SpecialMiniWindow < UIMiniWindow
+
+  VerticalScrollBar
+    id: miniwindowScrollBar
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    step: 0
+    margin-top: -0
+    margin-right: 0
+    margin-bottom: 0
+    pixels-scroll: true
+    visible: false
+
+SpecialMiniWindow
+  id: playerBarsWindow
+  size: 120 120
+  image-source: /images/ui/panel_side4
+  image-border: 2
+  image-clip: 0 2 100 96
+  &autoOpen: true
+  @onClose: modules.game_inventory.onMiniWindowClose()
+  &save: true
+  &notMinimize: true
+
+  MiniWindowContents
+    Button
+      id: storebutton
+      font: cipsoftFont
+      size: 108 20
+      anchors.left: parent.left
+      anchors.top: parent.top
+      margin-top: 1
+      margin-left: 6
+      image-source: /images/topbuttons/store_large
+      image-clip: 0 0 108 20
+      tooltip: Store
+      image-border: 2
+      @onClick: modules.game_store.toggle()
+
+      $pressed:
+        image-clip: 0 20 108 20
+
+      $on:
+        image-clip: 0 20 108 20
+
+      $hover !disabled:
+        image-clip: 0 20 108 20
+
+    Button
+      id: resizeButton
+      size: 44 20
+      image-source: /images/topbuttons/button_shrink
+      image-clip: 0 0 44 20
+      anchors.left: storebutton.right
+      anchors.top: storebutton.top
+      tooltip: Minimizar
+      margin-left: 5
+      margin-right: 8
+      @onClick: toggleResize()
+
+      $pressed !disabled:
+        image-clip: 0 20 44 20
+
+      $hover !disabled:
+        image-clip: 0 20 44 20
+
+    ButtonBox
+      id: SkillsButton
+      size: 20 20
+      image-source: /images/topbuttons/skills
+      image-clip: 0 0 20 20
+      anchors.left: parent.left
+      anchors.top: resizeButton.bottom
+      tooltip: Skills
+      image-border: 2
+      margin-top: 10
+      margin-left: 6
+      @onClick: modules.game_skills.toggle()
+
+      $pressed:
+        image-clip: 0 20 20 20
+
+      $hover !disabled:
+        image-clip: 0 20 20 20
+
+    ButtonBox
+      id: BattleButton
+      anchors.left: SkillsButton.right
+      anchors.top: SkillsButton.top
+      image-source: /images/topbuttons/battle
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Battle
+      size: 20 20
+      @onClick: modules.game_battle.toggle()
+
+      $pressed:
+        image-clip: 0 20 20 20
+
+      $hover !disabled:
+        image-clip: 0 20 20 20
+
+    ButtonBox
+      id: VipButton
+      anchors.left: BattleButton.right
+      anchors.top: BattleButton.top
+      image-source: /images/topbuttons/viplist
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Viplist
+      size: 20 20
+      @onClick: modules.game_viplist.toggle()
+
+      $pressed:
+        image-clip: 0 20 20 20
+
+      $hover !disabled:
+        image-clip: 0 20 20 20
+
+    ButtonBox
+      id: hotkeyButton
+      anchors.left: VipButton.right
+      anchors.top: VipButton.top
+      image-source: /images/topbuttons/hotkeys
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Hotkeys
+      size: 20 20
+      @onClick: modules.game_hotkeys.toggle()
+
+      $pressed:
+        image-clip: 20 0 20 20
+
+      $hover !disabled:
+        image-clip: 20 0 20 20
+
+    ButtonBox
+      id: questLogButton
+      anchors.left: hotkeyButton.right
+      anchors.top: hotkeyButton.top
+      image-source: /images/topbuttons/questlog
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Quest Log
+      size: 20 20
+      @onClick: modules.game_questlog.toggleQuestLog()
+
+      $pressed:
+        image-clip: 0 20 20 20
+
+      $hover !disabled:
+        image-clip: 0 20 20 20
+
+    ButtonBox
+      id: analyzerButton
+      anchors.horizontalCenter: SkillsButton.horizontalCenter
+      anchors.top: SkillsButton.bottom
+      image-source: /images/topbuttons/analyzers
+      image-clip: 0 0 20 20
+      margin-top: 5
+      tooltip: Analyzer (Ctrl+H)
+      size: 20 20
+      @onClick: modules.game_huntanalyzer.toggle()
+
+      $pressed:
+        image-clip: 20 0 20 20
+
+      $hover !disabled:
+        image-clip: 20 0 20 20
+
+    ButtonBox
+      id: inventoryButton
+      anchors.left: analyzerButton.right
+      anchors.top: analyzerButton.top
+      image-source: /images/topbuttons/inventory
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Inventory (Ctrl+I)
+      size: 20 20
+      @onClick: modules.game_inventory.toggle()
+
+      $pressed:
+        image-clip: 0 20 20 20
+
+      $hover !disabled:
+        image-clip: 0 20 20 20
+
+    ButtonBox
+      id: taskButton
+      anchors.left: inventoryButton.right
+      anchors.top: inventoryButton.top
+      image-source: /images/topbuttons/task
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Task
+      size: 20 20
+      @onClick: modules.game_tasks.toggleTasksPanel()
+
+      $pressed:
+        image-clip: 0 20 20 20
+
+      $hover !disabled:
+        image-clip: 0 20 20 20
+
+    ButtonBox
+      id: tasktrackerButton
+      anchors.left: taskButton.right
+      anchors.top: taskButton.top
+      image-source: /images/topbuttons/tasktracker
+      image-clip: 0 0 20 20
+      margin-left: 3
+      tooltip: Task tracker
+      size: 20 20
+      @onClick: modules.game_tasks.toggleTracker()
+
+      $pressed:
+        image-clip: 20 0 20 20
+
+      $hover !disabled:
+        image-clip: 20 0 20 20
+
+    ButtonBox
+      id: guildButton
+      anchors.left: tasktrackerButton.right
+      anchors.top: tasktrackerButton.top
+      image-source: /images/topbuttons/guild
+      image-clip: 0 0 20 20
+      tooltip: Guild manager
+      margin-left: 3
+      size: 20 20
+      @onClick: modules.game_guildmanagement.toggle()
+
+      $pressed:
+        image-clip: 20 0 20 20
+
+      $hover !disabled:
+        image-clip: 20 0 20 20
+
+    ButtonBox
+      id: offsetButton
+      anchors.left: guildButton.right
+      anchors.top: guildButton.top
+      image-source: /images/topbuttons/offset
+      image-clip: 0 0 20 20
+      tooltip: offset manager
+      margin-left: 3
+      size: 20 20
+      @onClick: modules.game_offset.OffsetManager.toggle()
+
+      $pressed:
+        image-clip: 20 0 20 20
+
+      $hover !disabled:
+        image-clip: 20 0 20 20
+
+
+

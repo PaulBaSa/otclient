@@ -1,0 +1,202 @@
+DailyMonster < UIWidget
+  size: 128 144
+  image-source: /images/ui/window
+  image-border: 30
+  padding: 20
+
+  UICreature
+    id: creature
+    anchors.fill: parent
+    margin-bottom: 16
+    phantom: true
+    animate: true
+    outfit-center: true
+
+  Label
+    id: name
+    anchors.fill: parent
+    anchors.top: parent.top
+    anchors.left: parent.left
+    text-align: bottom
+    text-wrap: true
+    margin-top: 50
+
+IconWidget < UIWidget
+  id: icon
+  image-source: /images/icons
+  size: 19 19
+
+DailyMultiplierLabel < UIWidget
+  phantom: true
+  text-wrap: true
+  text-auto-resize: true
+  text-align: left
+  text-offset: 22 0
+  $!first:
+    margin-top: 5
+
+  IconWidget
+    id: icon
+    anchors.left: parent.left
+    anchors.verticalcenter: parent.verticalcenter
+
+UIWidget
+  id: background
+  image-source: /images/background
+  image-smooth: true
+  anchors.top: parent.top
+  anchors.left: parent.left
+  anchors.right: parent.right
+  anchors.bottom: parent.bottom
+  focusable: false
+
+  Panel
+    id: dailyMonsters
+    anchors.bottom: parent.bottom
+    anchors.horizontalcenter: parent.horizontalcenter
+    margin-bottom: 40
+    height: 144
+    layout:
+      type: horizontalBox
+      spacing: 4
+
+  
+  BackGroundBroder
+    anchors.top: enterGame.top
+    anchors.left: enterGame.left
+    anchors.right: enterGame.right
+    anchors.bottom: exit.bottom
+    margin-top: -17
+    margin-left: -13
+    margin-right: -16
+    margin-bottom: -18
+
+  Button
+    id: enterGame
+    !text: tr('Enter Game')
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-bottom: 205
+    margin-left: 75
+    width: 88
+    @onClick: modules.client_entergame.EnterGame.show()
+
+  Button
+    id: accessAccount
+    !text: tr('Recovery Acc.')
+    text-offset: 0 2
+    anchors.top: enterGame.bottom
+    anchors.left: enterGame.left
+    margin-top: 10
+    width: 88
+    @onClick: modules.client_entergame.EnterGame:doOpenRecoveryAccountWindow()
+
+  Button
+    id: options
+    !text: tr('Options')
+    anchors.top: accessAccount.bottom
+    anchors.left: accessAccount.left
+    margin-top: 10
+    width: 88
+    @onClick: modules.client_options.toggle()
+
+  Button
+    id: info
+    !text: tr('Info')
+    anchors.top: options.bottom
+    anchors.left: options.left
+    margin-top: 10
+    width: 88
+    @onClick: modules.client_background:infoShow()
+
+  Button
+    id: exit
+    !text: tr('Exit Game')
+    anchors.top: info.bottom
+    anchors.left: info.left
+    margin-top: 10
+    width: 88
+    @onClick: g_app.exit()
+
+  MainWindow
+    id: infoBox
+    !text: tr('Info')
+    size: 245 220
+
+    OptionsBroder
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: next.top
+      margin-bottom: 20
+
+    HorizontalSeparator
+      anchors.bottom: next.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-bottom: 10
+
+    Button
+      !text: tr('Ok')
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      margin-bottom: -5
+      width: 45
+      @onClick: modules.client_background.infoHide()
+
+    Label
+      id: infoLabel1
+      color: #A8A8A8
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 8
+
+    Label
+      id: infoLabel2
+      color: #A8A8A8
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: prev.bottom
+
+    Label
+      id: infoLabel3
+      color: #A8A8A8
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: prev.bottom
+
+    Label
+      id: infoLabel4
+      color: #A8A8A8
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: prev.bottom
+
+    Label
+      id: infoLabel5
+      color: #A8A8A8
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: prev.bottom
+
+    HorizontalSeparator
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+      margin-left: 10
+      margin-right: 10
+
+    Label
+      id: infoLabel6
+      color: #A8A8A8
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      margin-top: 17
+      margin-left: 10
+
+    Button
+      id: infoLabel7
+      color: white
+      anchors.left: prev.right
+      anchors.top: prev.top
+      margin-left: 15
+      margin-top: -3
+      width: 85
+      @onClick: openWebsite()

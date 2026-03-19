@@ -1,0 +1,59 @@
+DeleteCharacterWindow < MainWindow
+  size: 200 200
+  text: Delete Character
+  @onEscape: self:hide()
+
+  MenuLabel
+    !text: tr('Character Name')
+    anchors.left: parent.left
+    anchors.top: parent.top
+    text-auto-resize: true
+
+  TextEdit
+    id: characterNameTextEdit
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 10
+    width: 180
+    text: ""
+
+  MenuLabel
+    !text: tr('Recovery Key')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+    text-auto-resize: true
+
+  TextEdit
+    id: recoveryKeyTextEdit
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 10
+    width: 180
+    text: ""
+
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: recoveryKeyTextEdit.bottom
+    margin-top: 10
+
+  Button
+    id: confirmButton
+    anchors.left: separator.left
+    anchors.top: separator.bottom
+    size: 80 40
+    margin-top: 10
+    !text: tr('Confirm')
+    @onClick: DeleteCharacter.doDeleteCharacter()
+
+  Button
+    id: backButton
+    anchors.left: confirmButton.right
+    anchors.top: separator.bottom
+    size: 80 40
+    margin-top: 10
+    margin-left: 10
+    !text: tr('Back')
+    @onClick: DeleteCharacter.hide()

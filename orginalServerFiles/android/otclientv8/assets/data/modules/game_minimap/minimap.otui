@@ -1,0 +1,16 @@
+MinimapWindow
+  id: minimapWindow
+  !text: tr('Minimap')
+  icon: /images/topbuttons/minimap
+  image-source: /images/ui/panel_side
+  image-border: 2
+  image-clip: 0 2 100 96
+  @onClose: modules.game_minimap.onMiniWindowClose()
+  &save: true
+  &autoOpen: true
+  $firstextended:
+    image-clip: 0 0 100 98
+  $lastextended:
+    image-clip: 0 2 100 98
+  $firstextended lastextended:
+    image-clip: 0 0 100 100

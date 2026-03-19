@@ -1,0 +1,246 @@
+BuffRow < Panel
+  height: 87
+
+BuffButton < UICheckBox
+  anchors.centerIn: parent
+  size: 64 64
+  image-color: #666666
+  phantom: false
+
+  $checked:
+    image-color: #ffffff
+
+Panel
+  Panel
+    id: buffs
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-left: 1
+    margin-right: 1
+    margin-bottom: 5
+    image-source: /images/guild_management/buffs_bg
+    layout: horizontalBox
+
+    Panel
+      width: 172
+      layout: verticalBox
+
+      BuffRow
+        id: row1
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/hp_regen
+          margin-right: 48
+          tooltip: Health Regeneration +3
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/mp_regen
+          margin-left: 48
+          tooltip: Mana Regeneration +5
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 2
+          text-align: center
+          visible: false
+
+      BuffRow
+        id: row4
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/prot_ele
+          margin-right: 48
+          tooltip: Physical Protection +5%
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/prot_phys
+          margin-left: 48
+          tooltip: Elemental Protection +3%
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 8
+          text-align: center
+          visible: false
+
+      BuffRow
+        id: row7
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/prot_monster
+          margin-right: 48
+          tooltip: All Protections +5% vs Monsters
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/prot_player
+          margin-left: 48
+          tooltip: All Protections +3% vs Players
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 14
+          text-align: center
+
+    Panel
+      width: 172
+      layout: verticalBox
+
+      BuffRow
+        id: row2
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/crit_chance
+          margin-right: 48
+          tooltip: Critical Chance +5%
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/crit_damage
+          margin-left: 48
+          tooltip: Critical Damage +10%
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 4
+          text-align: center
+          visible: false
+
+      BuffRow
+        id: row5
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/life_steal
+          margin-right: 48
+          tooltip: Life Steal +5%
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/mana_steal
+          margin-left: 48
+          tooltip: Mana Steal +3%
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 10
+          text-align: center
+          visible: false
+
+      BuffRow
+        id: row8
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/dmg_monster
+          margin-right: 48
+          tooltip: Damage vs Monsters +8%
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/dmg_player
+          margin-left: 48
+          tooltip: Damage vs Players +4%
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 16
+          text-align: center
+
+    Panel
+      width: 172
+      layout: verticalBox
+
+      BuffRow
+        id: row3
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/mov_speed
+          margin-right: 48
+          tooltip: Movement Speed +5
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/atk_speed
+          margin-left: 48
+          tooltip: Attack Speed +10%
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 6
+          text-align: center
+          visible: false
+
+      BuffRow
+        id: row6
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/magic_lvl
+          margin-right: 48
+          tooltip: Magic Level +2
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/all_skills
+          margin-left: 48
+          tooltip: All Skills +3
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 12
+          text-align: center
+
+      BuffRow
+        id: row9
+
+        BuffButton
+          id: 1
+          image-source: /images/guild_management/mana_reduction
+          margin-right: 48
+          tooltip: Mana Cost -10%
+
+        BuffButton
+          id: 2
+          image-source: /images/guild_management/cd_reduction
+          margin-left: 48
+          tooltip: Cooldown Reduction +10%
+
+        Panel
+          anchors.fill: parent
+          background: #000000aa
+          text: Unlocks at level 18
+          text-align: center
+    
+  Label
+    id: delay
+    anchors.bottom: next.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 5
+    text-auto-resize: true
+    text: Buffs can be saved once every 24 hour
+  
+  Button
+    id: save
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    width: 80
+    text: Save
+    enabled: false

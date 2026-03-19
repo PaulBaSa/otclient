@@ -1,0 +1,93 @@
+MainWindow
+  id: paymentWindow
+  size: 250 400
+  text: Pagamento por Cartão ou Mercado Pago
+
+  MenuLabel
+    id: firstNameLabel
+    !text: tr("Seu nome:")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+    margin-top: 20
+    color: #00db0c
+
+  TextEdit
+    id: firstNameText
+    size: 200 25
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+    max-length: 25
+
+  MenuLabel
+    id: valorLabel
+    !text: tr("Valor:")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 15
+    color: #00db0c
+
+  TextEdit
+    id: valorText
+    size: 200 25
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+    max-length: 25
+
+  MenuLabel
+    id: paymentMethodLabel
+    !text: tr("Escolha o método de pagamento:")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 15
+    color: #00db0c
+
+  ComboBox
+    id: paymentMethodComboBox
+    size: 200 25
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+
+  MenuLabel
+    id: currencyLabel
+    !text: tr("Escolha a moeda:")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 15
+    color: #00db0c
+
+  ComboBox
+    id: currencyComboBox
+    size: 200 25
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 5
+
+  Button
+    id: cancelarButton
+    size: 100 30
+    !text: tr("CANCELAR")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 20
+    @onClick: cancelDonate()
+
+  Button
+    id: confirmarButton
+    size: 100 30
+    !text: tr("CONFIRMAR")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: cancelarButton.bottom
+    margin-top: 10
+    @onClick: sendDonate()
+
+  Button
+    id: historyButton
+    size: 100 30
+    !text: tr("HISTÓRICO")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: confirmarButton.bottom
+    margin-top: 10
+    @onClick: fetchTransactionHistory()

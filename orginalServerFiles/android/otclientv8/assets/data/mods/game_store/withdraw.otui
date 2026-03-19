@@ -1,0 +1,36 @@
+MainWindow
+  id: withdrawWindow
+  size: 200 110
+  !text: 'Withdraw Premium Points'
+  @onEscape: modules.game_store.cancelWithdraw()
+
+  Label
+    text: 'Enter amount to withdraw'
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 5
+    text-align: center
+
+  TextEdit
+    id: withdrawAmount
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 5
+
+  Button
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    !text: 'Confirm'
+    width: 64
+    margin-bottom: -8
+    @onClick: modules.game_store.confirmWithdraw()
+
+  Button
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    !text: 'Cancel'
+    width: 64
+    margin-bottom: -8
+    @onClick: modules.game_store.cancelWithdraw()

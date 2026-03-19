@@ -1,0 +1,328 @@
+MiniPanel < Panel
+  text-offset: 0 2
+  text-align: top
+  image-source: /images/ui/panel_bottom
+  image-border: 4
+  image-border-top: 20
+  image-border-bottom: 4
+  padding-left: 4
+  padding-bottom: 3
+  padding-top: 18
+  padding-right: 2
+
+HealthBar < ProgressBar
+  image-source: /images/ui/progressbarhplife
+  image-border: 3
+  background-color: #ff4444
+
+ManaBar < ProgressBar
+  image-source: /images/ui/mana
+  image-border: 4
+  background-color: #4444ff
+
+InspectSkillName < GameLabel
+  font: verdana-11px-monochrome
+  anchors.left: parent.left
+  anchors.top: parent.top
+  anchors.bottom: parent.bottom
+  text: Magic Level
+
+InspectSkillValue < GameLabel
+  id: value
+  font: verdana-11px-monochrome
+  text-align: topright
+  anchors.right: parent.right
+  anchors.top: parent.top
+  anchors.bottom: parent.bottom
+  anchors.left: prev.left
+  text: 9
+
+InspectSkillBar < ProgressBar
+  id: percent
+  background-color: green
+  height: 5
+  margin-top: 15
+  anchors.left: parent.left
+  anchors.right: parent.right
+  anchors.top: parent.top
+  phantom: false
+
+MainWindow
+  id: inspectWindow
+  !text: 'Player Inspect'
+  size: 370 500
+  @onEscape: modules.game_inspect.toggle()
+
+  MiniPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    size: 165 160
+    text: Outfit
+
+    UICreature
+      id: outfitInspectBox
+      size: 110 80
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-left: 30
+      margin-top: 20
+      animate: true
+      fixed-creature-size: true
+
+  MiniPanel
+    anchors.top: parent.top
+    anchors.left: prev.right
+    size: 165 160
+    margin-left: 10
+    text: Basic Info
+    padding-left: 10
+    padding-right: 15
+    padding-top: 30
+    layout: verticalBox
+
+    Panel
+      height: 14
+      Label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: Name:
+
+      Label
+        id: name
+        anchors.top: parent.top
+        anchors.right: parent.right
+        text-auto-resize: true
+        text-align: right
+
+    Panel
+      height: 14
+      Label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: Level:
+
+      Label
+        id: level
+        anchors.top: parent.top
+        anchors.right: parent.right
+        text-align: right
+        text-auto-resize: true
+
+    Panel
+      height: 14
+      Label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: Experience:
+
+      Label
+        id: exp
+        anchors.top: parent.top
+        anchors.right: parent.right
+        text-align: right
+        text-auto-resize: true
+
+    Panel
+      height: 14
+      Label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: Guild:
+
+      Label
+        id: guild
+        anchors.top: parent.top
+        anchors.right: parent.right
+        text-auto-resize: true
+        text-align: right
+
+    Panel
+      height: 14
+      Label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: Vocation:
+
+      Label
+        id: vocation
+        anchors.top: parent.top
+        anchors.right: parent.right
+        text-auto-resize: true
+        text-align: right
+
+    HealthBar
+      id: healthBar
+      margin-top: 5
+      text: 100 / 100
+    
+    ManaBar
+      id: manaBar
+      margin-top: 2
+      text: 100 / 100
+
+  MiniPanel
+    id: inventoryPanel
+    text: Inventory
+    anchors.top: prev.bottom
+    anchors.bottom: separator.top
+    anchors.left: parent.left
+    margin-top: 5
+    margin-bottom: 10
+    size: 165 180
+    
+    HeadSlot
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 3
+      virtual: true
+    BodySlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+    LegSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+
+    FeetSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+    NeckSlot
+      anchors.top: slot1.top
+      anchors.right: slot1.left
+      margin-top: 13
+      margin-right: 5
+      virtual: true
+    LeftSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+    FingerSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+    BackSlot
+      anchors.top: slot1.top
+      anchors.left: slot1.right
+      margin-top: 13
+      margin-left: 5
+      virtual: true
+    RightSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+    AmmoSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 3
+      virtual: true
+  MiniPanel
+    anchors.top: prev.top
+    anchors.bottom: separator.top
+    anchors.left: prev.right
+    size: 165 280
+    margin-bottom: 20
+    margin-left: 10
+    text: Skills
+    padding-left: 5
+    padding-right: 15
+    layout: verticalBox
+
+    Panel
+      id: skill12
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Magic Level
+      InspectSkillValue
+        text: 9
+      InspectSkillBar
+        background-color: red
+
+    Panel
+      id: skill1
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Fist Fighting
+      InspectSkillValue
+        text: 9
+      InspectSkillBar
+
+    Panel
+      id: skill2
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Club Fighting
+      InspectSkillValue
+      InspectSkillBar
+
+    Panel
+      id: skill3
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Sword Fighting
+      InspectSkillValue
+      InspectSkillBar
+
+    Panel
+      id: skill4
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Axe Fighting
+      InspectSkillValue
+      InspectSkillBar
+
+    Panel
+      id: skill5
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Distance Fighting
+      InspectSkillValue
+        text: 9
+      InspectSkillBar
+
+    Panel
+      id: skill6
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Shielding
+      InspectSkillValue
+        text: 9
+      InspectSkillBar
+
+    Panel
+      id: skill7
+      margin-top: 3
+      height: 21
+      phantom: false
+      InspectSkillName
+        text: Fishing
+      InspectSkillValue
+        text: 9
+      InspectSkillBar
+
+  Button
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    text: Close
+    margin-right: 225
+    width: 60
+    @onClick: modules.game_inspect.hide()

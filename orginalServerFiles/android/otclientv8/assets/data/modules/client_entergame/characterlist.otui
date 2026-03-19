@@ -1,0 +1,203 @@
+CharacterWidget < UIWidget
+  height: 14
+  background-color: alpha
+  border: 1 #5c5b5b
+  &updateOnStates: |
+    function(self)
+      local children = self:getChildren()
+      for i=1,#children do
+        children[i]:setOn(self:isFocused())
+      end
+    end
+  @onFocusChange: self:updateOnStates()
+  @onSetup: self:updateOnStates()
+
+  $focus:
+    background-color: #ffffff11
+    border: 1 #017d00
+
+  Label
+    id: name
+    color: #bbbbbb
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    text-wrap: true
+    text-auto-resize: false
+    background-color: alpha
+    width: 110
+    max-width: 110
+    height: 40
+    margin-top: 5
+    margin-bottom: 5
+    break-word: true
+    text-align: center
+
+    $on:
+      color: #ffffff
+
+  Label
+    id: vocation
+    color: #bbbbbb
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    text-auto-resize: true
+    background-color: alpha
+    margin-bottom: 5
+
+  Label
+    id: level
+    color: #bbbbbb
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    text-auto-resize: true
+    background-color: alpha
+    margin-bottom: 20
+
+  UICreature
+    size: 52 52
+    id: outfit
+    anchors.centerIn: parent
+    margin: 0 5 8 0
+
+  Label
+    id: worldName
+    color: #bbbbbb
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-right: 5
+    font: verdana-11px-monochrome
+    text-auto-resize: true
+    background-color: alpha
+    &baseText: '(%s)'
+    visible: false
+
+    $on:
+      color: #ffffff
+
+StaticMainWindow
+  id: charactersWindow
+  !text: tr('Character List')
+  visible: false
+  size: 454 380
+  $mobile:
+    size: 321 280
+  @onEnter: CharacterList.doLogin()
+  @onEscape: CharacterList.hide(true)
+  @onSetup: |
+    g_keyboard.bindKeyPress('Up',   function() for i = 1, 4 do self.characters:focusPreviousChild(KeyboardFocusReason) end end, self)
+    g_keyboard.bindKeyPress('Down', function() for i = 1, 4 do self.characters:focusNextChild(KeyboardFocusReason)     end end, self)
+    g_keyboard.bindKeyPress('Left',  function() self.characters:focusPreviousChild(KeyboardFocusReason) end, self)
+    g_keyboard.bindKeyPress('Right', function() self.characters:focusNextChild(KeyboardFocusReason)     end, self)
+
+  ScrollablePanel
+    id: characters
+    anchors.top: parent.top
+    anchors.bottom: next.bottom
+    anchors.left: parent.left
+    anchors.right: next.left
+    vertical-scrollbar: characterListScrollBar
+    image-source: /images/ui/panel_side
+    image-border: 2
+    auto-focus: first
+    padding: 8
+    layout:
+      type: grid
+      cell-size: 128 128
+      cell-spacing: 5
+      flow: true
+
+  VerticalScrollBar
+    id: characterListScrollBar
+    anchors.top: parent.top
+    anchors.bottom: accountStatusCaption.top
+    anchors.right: parent.right
+    margin-bottom: 10
+    step: 14
+    pixels-scroll: true
+
+  Label
+    id: accountStatusCaption
+    !text: tr('Status') .. ':'
+    anchors.left: parent.left
+    anchors.bottom: separator.top
+    text-auto-resize: true
+    margin-bottom: 4
+    $mobile:
+      size: 90 15
+
+  Label
+    id: accountStatusLabel
+    !text: tr('Free Account')
+    anchors.right: parent.right
+    anchors.bottom: separator.top
+    text-auto-resize: true
+    margin-bottom: 4
+    $mobile:
+      size: 200 15
+
+    $on:
+      color: #FF0000
+
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    image-color: #017d00
+    margin-bottom: 10
+
+  Button
+    id: autoReconnect
+    width: 80
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    $mobile:
+      size: 70 20
+    
+    $!on:
+      image-color: red    
+      !text: tr('Reconnect')
+
+    $on:
+      !text: tr('Reconnect')
+      image-color: green
+
+  Button
+    id: buttonCreateCharacter
+    !text: tr('Create Character')
+    margin-bottom: 0
+    margin-left: 95
+    image-color: green
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    @onClick: CharacterList.showCreateCharacter()
+
+  Button
+    !text: tr('Delete')
+    size: 50 23
+    image-color: red
+    margin-left: 27
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    @onClick: DeleteCharacter.show()
+
+  Button
+    id: buttonOk
+    !text: tr('Ok')
+    width: 70
+    anchors.right: next.left
+    anchors.bottom: parent.bottom
+    margin-right: 8
+    @onClick: CharacterList.doLogin()
+    $mobile:
+      size: 55 20
+
+  Button
+    id: buttonCancel
+    !text: tr('Cancel')
+    width: 70
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: CharacterList.hide(true)
+    $mobile:
+      size: 55 20

@@ -1,0 +1,92 @@
+
+ScrollBarSlider < UIButton
+  id: sliderButton
+  anchors.centerIn: parent
+  image-source: /images/ui/scrollbar
+
+ScrollBarValueLabel < Label
+  id: valueLabel
+  anchors.fill: parent
+  color: white
+  text-align: center
+
+VerticalScrollBar < UIScrollBar
+  orientation: vertical
+  width: 12
+  height: 39
+  image-source: /images/ui/scrollbar
+  image-clip: 84 12 12 96
+  image-border-left: 1
+  image-border-right: 1
+  pixels-scroll: true
+
+  UIButton
+    id: decrementButton
+    anchors.top: parent.top
+    anchors.left: parent.left
+    image-source: /images/ui/scrollbar
+    image-clip: 60 12 12 12
+    size: 12 12
+    $pressed:
+      image-clip: 48 12 12 12
+
+  UIButton
+    id: incrementButton
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/ui/scrollbar
+    image-clip: 48 24 12 12
+    size: 12 12
+    $pressed:
+      image-clip: 60 24 12 12
+
+  ScrollBarSlider
+    anchors.horizontalCenter: parent.horizontalCenter
+    size: 12 12
+    image-clip: 72 12 12 44
+    image-border-top: 5
+    image-border-bottom: 6
+
+  ScrollBarValueLabel
+
+HorizontalScrollBar < UIScrollBar
+  orientation: horizontal
+  height: 12
+  width: 39
+  image-source: /images/ui/scrollbar
+  image-clip: 0 0 96 12
+  image-border-top: 1
+  image-border-bottom: 1
+
+  $disabled:
+    color: #bbbbbb88
+
+  UIButton
+    id: decrementButton
+    anchors.top: parent.top
+    anchors.left: parent.left
+    image-source: /images/ui/scrollbar
+    image-clip: 0 24 12 12
+    size: 12 12
+    $pressed:
+      image-clip: 12 24 12 12
+
+  UIButton
+    id: incrementButton
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    size: 12 12
+    image-source: /images/ui/scrollbar
+    image-clip: 0 12 12 12
+    $pressed:
+      image-clip: 12 12 12 12
+
+  ScrollBarSlider
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/ui/scrollbar
+    size: 12 12
+    image-clip: 0 36 44 12
+    image-border-left: 6
+    image-border-right: 5
+
+  ScrollBarValueLabel

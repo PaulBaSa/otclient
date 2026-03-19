@@ -1,0 +1,181 @@
+UIWidget
+  anchors.fill: parent
+  focusable: false
+  phantom: true
+
+  UIProgressRect
+    id: cursor
+    size: 64 64
+    background: #FF5858
+    percent: 100
+    visible: false
+    x: 0
+    y: 0
+    focusable: false
+    phantom: true
+
+  UIButton
+    id: attacker
+    size: 150 150
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/game/mobile/atk_mobile
+    image-fixed-ratio: true
+    margin-bottom: 50
+    margin-right: 60
+    phantom: false
+    focusable: false
+    opacity: 0.8
+    $pressed:
+      opacity: 0.6
+    $hover !pressed:
+      opacity: 1.0
+
+  UIButton
+    id: use
+    size: 80 80
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/game/mobile/use
+    image-fixed-ratio: true
+    margin-bottom: 75
+    margin-right: 240
+    phantom: false
+    focusable: false
+    opacity: 0.8
+    @onClick: modules.game_interface.gameLeftActions.use.doubleClickAction()
+    $pressed:
+      opacity: 0.6
+    $hover !pressed:
+      opacity: 1.0
+
+  UIButton
+    id: buttonChat
+    focusable: false
+    image-source: /images/game/mobile/mobileChat
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-left: 90
+    margin-bottom: 320
+    visible: true
+    size: 39 39
+    @onClick: modules.game_interface.gameLeftActions.chat.onClick()
+
+  UIButton
+    id: follow
+    size: 80 80
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/game/mobile/follow
+    image-fixed-ratio: true
+    margin-bottom: 170
+    margin-right: 170
+    phantom: false
+    focusable: false
+    opacity: 0.8
+    @onClick: modules.game_interface.gameLeftActions.follow.onClick()
+    $pressed:
+      opacity: 0.6
+    $hover !pressed:
+      opacity: 1.0
+
+  UIButton
+    id: look
+    size: 80 80
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/game/mobile/look
+    image-fixed-ratio: true
+    margin-bottom: 230
+    margin-right: 70
+    phantom: false
+    focusable: false
+    opacity: 0.8
+    @onClick: modules.game_interface.gameLeftActions.look.onClick()
+    $pressed:
+      opacity: 0.6
+    $hover !pressed:
+      opacity: 1.0
+
+  UIButton
+    id: buttonBug
+    focusable: false
+    image-source: /images/game/mobile/mobileBug
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-left: 70
+    margin-bottom: 255
+    visible: true
+    size: 39 39
+    @onClick: modules.game_bugreport.show()
+
+  UIButton
+    id: menu
+    size: 80 90
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/game/mobile/inventario
+    margin-bottom: 140
+    margin-right: 44
+    phantom: false
+    focusable: false
+    opacity: 0.8
+    $pressed:
+      opacity: 0.6
+    $hover !pressed:
+      opacity: 1.0
+
+  UIButton
+    id: buttonMount
+    size: 90 80
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    image-source: /images/game/mobile/mount
+    margin-bottom: 35
+    margin-right: 150
+    phantom: false
+    focusable: false
+    @onClick: modules.game_interface.onMobileMount()
+    opacity: 0.8
+    $pressed:
+      opacity: 0.6
+    $hover !pressed:
+      opacity: 1.0
+
+  UIButton
+    id: exitgame
+    size: 85 40
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    image-source: /images/game/mobile/exit_mobile
+    image-fixed-ratio: true
+    margin-bottom: 255
+    margin-left: -20
+    phantom: false
+    focusable: false
+    @onClick: modules.game_interface.tryLogout(true)
+
+  UIWidget
+    id: keypad
+    size: 200 200
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    phantom: false
+    focusable: false
+    margin-bottom: 50
+    margin-left: 50
+    visible: false
+    image-source: /images/game/mobile/keypad
+    image-fixed-ratio: true
+    image-rect: 0 0 200 200
+    
+    UIWidget
+      id: pointer
+      size: 130 130
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/game/mobile/keypad_pointer
+      image-fixed-ratio: true
+      phantom: true
+      focusable: false
+      

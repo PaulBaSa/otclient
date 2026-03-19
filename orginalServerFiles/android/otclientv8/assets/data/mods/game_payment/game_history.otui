@@ -1,0 +1,26 @@
+MainWindow
+  id: historyWindow
+  size: 400 300
+  text: Histórico de Transações
+
+  VerticalScrollBar
+    id: scrollBar
+    anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+
+  ScrollArea
+    id: transactionList
+    anchors.fill: parent
+    anchors.right: scrollBar.left
+    margin: 5
+    vertical-scroll: scrollBar
+
+  Button
+    id: closeButton
+    size: 100 30
+    !text: tr("FECHAR")
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    margin-bottom: 10
+    @onClick: closeHistory()

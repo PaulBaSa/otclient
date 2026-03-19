@@ -1,0 +1,9 @@
+Module
+  name: game_buffs
+  description: Buffs and debuffs
+  author: Oen
+  website: None
+  sandboxed: true
+  scripts: [ buffs ]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -1,0 +1,55 @@
+items:
+effects:
+creatures:
+  5:
+    target-displacement:
+      North: 4 6
+      East: 7 6
+      West: 6 5
+      South: 5 6
+    outfit-displacement:
+      opacity: 1
+      North: 0 0
+      East: 0 0
+      West: 0 0
+      South: 0 0
+  21:
+    target-displacement:
+      North: 2 0
+      East: 2 2
+      West: 0 3
+      South: 3 3
+    outfit-displacement:
+      opacity: 1
+      North: 0 0
+      East: 0 0
+      West: 0 0
+      South: 0 0
+  128:
+    target-displacement:
+      North: 8 12
+      East: 12 11
+      West: 12 10
+      South: 9 11
+    name-displacement:
+      North: 0 0
+      East: 0 0
+      West: 0 0
+      South: 0 0
+  143:
+    target-displacement:
+      North: 10 12
+      East: 10 10
+      West: 10 8
+      South: 9 11
+    outfit-displacement:
+      opacity: 1
+      North: 0 0
+      East: 0 0
+      West: 0 0
+      South: 0 0
+    name-displacement:
+      North: 0 0
+      East: 0 0
+      West: 0 0
+      South: 0 0

@@ -1,0 +1,231 @@
+EnterGameWindow < MainWindow
+  !text: tr('Enter Game')
+  color: #BFBFBF
+  size: 241 250
+  &static: false
+
+EnterGameButton < Button
+  width: 45
+
+EnterGameWindow
+  id: enterGame
+  @onEnter: EnterGame.doLogin()
+
+  MenuLabel
+    id: accountNumberLabel
+    !text: tr('Account Name:')
+    color:#BFBFBF
+    anchors.left: parent.left
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 2
+    margin-right: 110
+    text-auto-resize: true
+
+  HiddenTextQtToggleEdit
+    id: accountNameTextEdit
+    anchors.left: prev.right
+    anchors.right: parent.right
+    anchors.top: parent.top
+
+  MenuLabel
+    !text: tr('Password:')
+    color:#BFBFBF
+    anchors.left: parent.left
+    anchors.top: accountPasswordTextEdit.top
+    margin-top: 1
+    text-auto-resize: true
+
+  HiddenTextQtToggleEdit
+    id: accountPasswordTextEdit
+    anchors.left: accountNameTextEdit.left
+    anchors.right: accountNameTextEdit.right
+    anchors.top: accountNameTextEdit.bottom
+    margin-top: 15
+
+  MenuLabel
+    !text: tr("If you don't have")
+    color:#BFBFBF
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    margin-top: 10
+    text-auto-resize: true
+
+  MenuLabel
+    !text: tr("an account yet:")
+    color:#BFBFBF
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  Button
+    id: createAccount
+    size: 95 20
+    !text: tr('Create Account')
+    anchors.top: accountPasswordTextEdit.bottom
+    anchors.left: accountPasswordTextEdit.left
+    margin-top: 18
+    margin-left: 10
+    image-color: green
+    @onClick: EnterGame:doOpenCreateAccountWindow()
+
+  TextEdit
+    id: accountTokenTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: accountPasswordTextEdit.bottom
+    margin-top: 2
+    visible: false
+
+  Panel
+    id: serverSelectorPanel
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    visible: false
+    height: 52
+    on: true
+    focusable: false
+    
+    $on:
+      visible: true
+      margin-top: 0
+    
+    $!on:
+      visible: false
+      margin-top: -52
+
+    MenuLabel
+      id: serverLabel
+      !text: tr('Server')
+      anchors.left: parent.left
+      anchors.top: prev.bottom
+      text-auto-resize: true    
+      margin-top: 5
+      visible: false
+
+    ComboBox
+      id: serverSelector
+      anchors.left: prev.left
+      anchors.right: parent.right
+      anchors.top: serverLabel.bottom
+      margin-top: 2
+      margin-right: 3
+      menu-scroll: true
+      menu-height: 125
+      menu-scroll-step: 25
+      text-offset: 5 2
+      @onOptionChange: EnterGame.onServerChange()
+      visible: false
+    
+  Panel
+    id: customServerSelectorPanel
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    height: 52
+    on: true
+    focusable: true
+    visible: false
+    
+    $on:
+      visible: true
+      margin-top: 0
+    
+    $!on:
+      visible: false
+      margin-top: -52
+    
+    HorizontalSeparator
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 8
+
+    MenuLabel
+      id: serverLabel
+      !text: tr('IP:PORT or url')
+      anchors.left: prev.left
+      anchors.top: prev.bottom
+      margin-top: 8
+      text-auto-resize: true
+      visible: false
+
+    TextEdit
+      id: serverHostTextEdit
+      !tooltip: tr('Make sure that your client uses\nthe correct game client version')
+      anchors.left: parent.left
+      anchors.top: serverLabel.bottom
+      margin-top: 2
+      width: 150
+      visible: false
+
+    MenuLabel
+      id: clientLabel
+      !text: tr('Version')
+      anchors.left: serverHostTextEdit.right
+      anchors.top: serverLabel.top
+      text-auto-resize: true
+      margin-left: 10
+      visible: false
+
+    ComboBox
+      id: clientVersionSelector
+      anchors.top: serverHostTextEdit.top
+      anchors.bottom: serverHostTextEdit.bottom
+      anchors.left: prev.left
+      anchors.right: parent.right
+      menu-scroll: true
+      menu-height: 125
+      menu-scroll-step: 25
+      margin-right: 3
+      visible: false
+
+  HorizontalSeparator
+    id: separator1
+    anchors.top: createAccount.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 15
+
+  CheckBox
+    id: rememberPasswordBox
+    !text: tr('Save password')
+    color:#BFBFBF
+    !tooltip: tr('Remember account and password when starts client')
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: createAccount.bottom
+    margin-top: 22
+    #@onCheckChange: self:getParent():getChildById('autoLoginBox'):setEnabled(self:isChecked())
+
+  HorizontalSeparator
+    anchors.bottom: next.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 6
+
+  EnterGameButton
+    !text: tr('Cancel')
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: EnterGame.hide()
+    margin-bottom: -5
+
+  EnterGameButton
+    !text: tr('Ok')
+    anchors.right: prev.left
+    anchors.bottom: parent.bottom
+    margin-right: 10
+    margin-bottom: -5
+    @onClick: EnterGame.doLogin()
+
+  Label
+    id: serverInfoLabel
+    font: verdana-11px-rounded
+    anchors.top: prev.top
+    anchors.left: parent.left
+    margin-top: 5
+    color: green
+    text-auto-resize: true
+    visible: false

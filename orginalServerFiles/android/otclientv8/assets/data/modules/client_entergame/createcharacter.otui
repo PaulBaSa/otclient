@@ -1,0 +1,79 @@
+CreateCharacterWindow < MainWindow
+  !text: tr('Character Creation')
+  size: 250 270
+
+CreateCharacterWindow
+  id: createCharacterWindow
+
+  MenuLabel
+    !text: tr('Character name')
+    anchors.left: parent.left
+    anchors.top: parent.top
+    text-auto-resize: true
+
+  TextEdit
+    id: characterNameTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  MenuLabel
+    !text: tr('Town ID')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  ComboBox
+    id: townIdComboBox
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  MenuLabel
+    !text: tr('Sex')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  ComboBox
+    id: sexComboBox
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  MenuLabel
+    !text: tr('Vocation')
+    anchors.left: parent.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+
+  ComboBox
+    id: vocationComboBox
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 10
+
+  Button
+    !text: tr('Create')
+    size: 80 40
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    @onClick: CreateCharacter.doCreateCharacter()
+
+  Button
+    !text: tr('Cancel')
+    size: 80 40
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    @onClick: CreateCharacter.doOpenCharacterList()

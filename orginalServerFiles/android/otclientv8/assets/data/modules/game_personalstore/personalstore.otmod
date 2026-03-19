@@ -1,0 +1,9 @@
+Module
+  name: game_personalstore
+  description: Gerencia compra e vendas pessoais dos jogadores.
+  author: Ryukiimaru
+  website: https://www.facebook.com/systemyart
+  sandboxed: true
+  scripts: [ personalstore ]
+  @onLoad: init()
+  @onUnload: terminate()

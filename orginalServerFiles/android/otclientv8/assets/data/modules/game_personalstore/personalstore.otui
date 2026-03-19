@@ -1,0 +1,271 @@
+MoneyWidget < UIWidget
+  size: 24 17
+  anchors.top: parent.top
+  anchors.left: parent.left
+  text: 0
+  font: verdana-11px-rounded
+
+  $!first:
+    anchors.left: prev.right
+    margin-left: 26
+
+MoneyPanel < UIWidget
+  id: moneyPanel
+  size: 144 17
+  image-source: images/money
+
+  MoneyWidget
+    id: 3
+  MoneyWidget
+    id: 2
+  MoneyWidget
+    id: 1
+PSItem < UIWidget
+  size: 80 54
+  border-width: 1
+  border-color: black
+  Item
+    id: item
+    size: 34 34
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    virtual: true
+    UIWidget
+      id: rarityId
+      anchors.fill: parent
+      image-source: /images/ui/rarity_frames
+      phantom: true
+      visible: false
+  Button
+    id: remove
+    size: 15 15
+    anchors.top: parent.top
+    anchors.right: parent.right
+    tooltip: Remover
+    text: x
+    visible: false
+  Button
+    id: buyOrEdit
+    height: 18
+    anchors.top: item.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin: 2
+    enabled: false
+
+PSPanel < UIWidget
+  anchors.fill: parent
+  visible: false
+  phantom: true
+StartStorePanel < PSPanel
+  id: startStorePanel
+  TextEdit
+    id: description
+    size: 250 90
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 30
+  Button
+    id: confirm
+    size: 80 22
+    anchors.top: description.bottom
+    anchors.left: description.left
+    margin-top: 5
+    text: Confirm
+  Button
+    id: cancel
+    size: 80 22
+    anchors.top: description.bottom
+    anchors.right: description.right
+    margin-top: 5
+    text: Cancel
+    @onClick: modules.game_personalstore.showMainPanel()
+BuyItemPanel < PSPanel
+  id: buyItemPanel
+  Item
+    id: item
+    size: 34 34
+    virtual: true
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 50
+    UIWidget
+      id: rarityId
+      anchors.fill: parent
+      image-source: /images/ui/rarity_frames
+      phantom: true
+      visible: false
+  HorizontalScrollBar
+    id: count
+    size: 220 13
+    anchors.top: item.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 4
+  MoneyPanel
+    id: price
+    anchors.top: count.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+  Button
+    id: confirm
+    size: 80 22
+    anchors.top: price.bottom
+    anchors.left: count.left
+    margin-top: 5
+    text: Confirm
+  Button
+    id: cancel
+    size: 80 22
+    anchors.top: price.bottom
+    anchors.right: count.right
+    margin-top: 5
+    text: Cancel
+    @onClick: modules.game_personalstore.showMainPanel()
+ItemEditPanel < PSPanel
+  id: itemEditPanel
+  Item
+    id: item
+    size: 34 34
+    virtual: true
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 50
+    UIWidget
+      id: rarityId
+      anchors.fill: parent
+      image-source: /images/ui/rarity_frames
+      phantom: true
+      visible: false
+  HorizontalScrollBar
+    id: count
+    size: 220 13
+    anchors.top: item.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+  UIWidget
+    id: price
+    size: 220 20
+    anchors.top: count.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 5
+    tooltip: tr("Pre�o unit�rio")
+    TextEdit
+      id: value
+      size: 80 20
+      anchors.top: parent.top
+      anchors.left: parent.left
+    MoneyPanel
+      anchors.left: value.right
+      anchors.top: value.top
+  Button
+    id: confirm
+    size: 80 22
+    anchors.top: price.bottom
+    anchors.left: count.left
+    margin-top: 5
+    text: Confirm
+  Button
+    id: cancel
+    size: 80 22
+    anchors.top: price.bottom
+    anchors.right: count.right
+    margin-top: 5
+    text: Cancel
+    @onClick: modules.game_personalstore.showMainPanel()
+MainPanel < PSPanel
+  id: mainPanel
+  visible: true
+
+  UIWidget
+    id: itemsPanel
+    size: 356 113
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 30
+    PSItem
+      id: item1
+      anchors.top: parent.top
+      anchors.left: parent.left
+    PSItem
+      id: item2
+      anchors.top: item1.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item3
+      anchors.top: item1.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item4
+      anchors.top: item1.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item5
+      anchors.top: item1.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item6
+      anchors.top: item1.bottom
+      anchors.left: item1.left
+      margin-top: 4
+    PSItem
+      id: item7
+      anchors.top: item6.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item8
+      anchors.top: item6.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item9
+      anchors.top: item6.top
+      anchors.left: prev.right
+      margin-left: 10
+    PSItem
+      id: item10
+      anchors.top: item6.top
+      anchors.left: prev.right
+      margin-left: 10
+  HorizontalSeparator
+    id: separator
+    anchors.top: itemsPanel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-left: 10
+    margin-right: 10
+  Button
+    id: editStoreButton
+    anchors.top: separator.bottom
+    anchors.left: itemsPanel.left
+    margin-top: 10
+    text: Editar Loja
+    @onClick: modules.game_personalstore.enableEditionModeOrOfflineMode()
+  Button
+    id: startStoreButton
+    anchors.top: editStoreButton.top
+    anchors.right: itemsPanel.right
+    text: Iniciar Vendas
+    @onClick: modules.game_personalstore.selectOrStartStore()
+MainWindow
+  size: 470 230
+  anchors.centerIn: parent
+  text: Personal Store
+  @onEscape: modules.game_personalstore.hide()
+
+  Button
+    id: close
+    size: 20 20
+    anchors.top: parent.top
+    anchors.right: parent.right
+    text: x
+    @onClick: modules.game_personalstore.hide()
+  BuyItemPanel
+  ItemEditPanel
+  StartStorePanel
+  MainPanel
