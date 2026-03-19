@@ -320,3 +320,8 @@ android/app/src/main/assets
 
 # Android assembled data archive (too large for git — use split parts)
 android/data/data.zip
+
+# Large binary files exceeding GitHub's 100MB limit
+orginalServerFiles/android/otclientv8/assets/data.zip
+orginalServerFiles/vc16/vc16/OLDtibia_Client/DirectX/*.iobj
+orginalServerFiles/vc16/vc16/OLDtibia_Client/OpenGL/*.iobj
